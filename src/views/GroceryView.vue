@@ -16,7 +16,7 @@ const items = computed(() => {
   return computeGroceryList().map((i) => ({
     ...i,
     key: groceryKey(i.name, i.unit),
-    checked: !!checkedGrocery[groceryKey(i.name, i.unit)],
+    checked: !!checkedGrocery.value[groceryKey(i.name, i.unit)],
   }));
 });
 

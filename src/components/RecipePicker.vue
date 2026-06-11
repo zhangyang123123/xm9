@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { X, Search, Filter } from 'lucide-vue-next';
 import type { Recipe, DayOfWeek, MealType, DishType } from '@/types';
 import { DAYS_ORDER, DAY_LABELS, MEALS_ORDER, MEAL_LABELS, MEAL_EMOJIS, DISH_LABELS, DISH_COLORS } from '@/types';
@@ -28,6 +28,19 @@ const selectedDay = ref<DayOfWeek>(props.defaultDay || 'monday');
 const selectedMeal = ref<MealType>(props.defaultMeal || 'dinner');
 const search = ref('');
 const dishTypeFilter = ref<DishType | 'all'>('all');
+
+watch(
+  () => props.defaultDay,
+  (val) => {
+    if (val) selectedDay.value = val;
+  }
+);
+watch(
+  () => props.defaultMeal,
+  (val) => {
+    if (val) selectedMeal.value = val;
+  }
+);
 
 const filteredRecipes = computed(() => {
   return recipes.value.filter((r) => {
